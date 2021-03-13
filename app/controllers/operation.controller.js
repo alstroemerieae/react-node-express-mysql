@@ -1,8 +1,8 @@
 const db = require("../models");
-const Tutorial = db.tutorials;
+const Operation = db.operations;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new Tutorial
+// Create and Save a new Operation
 exports.create = (req, res) => {
   // Validate request
   if (!req.body.concept) {
@@ -12,149 +12,149 @@ exports.create = (req, res) => {
     return;
   }
 
-  // Create a Tutorial
-  const tutorial = {
+  // Create a Operation
+  const operation = {
     concept: req.body.concept,
     amount: req.body.amount,
     operation: req.body.operation ? req.body.operation : false
   };
 
-  // Save Tutorial in the database
-  Tutorial.create(tutorial)
+  // Save Operation in the database
+  Operation.create(operation)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Tutorial."
+          err.message || "Some error occurred while creating the Operation."
       });
     });
 };
 
-// Retrieve all Tutorials from the database.
+// Retrieve all Operations from the database.
 exports.findAll = (req, res) => {
   const concept = req.query.concept;
   var condition = concept ? { concept: { [Op.like]: `%${concept}%` } } : null;
 
-  Tutorial.findAll({ where: condition })
+  Operation.findAll({ where: condition })
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving tutorials."
+          err.message || "Some error occurred while retrieving Operations."
       });
     });
 };
 
-// Find a single Tutorial with an id
+// Find a single Operation with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Tutorial.findByPk(id)
+  Operation.findByPk(id)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error retrieving Tutorial with id=" + id
+        message: "Error retrieving Operation with id=" + id
       });
     });
 };
 
-// Update a Tutorial by the id in the request
+// Update a Operation by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Tutorial.update(req.body, {
+  Operation.update(req.body, {
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "Tutorial was updated successfully."
+          message: "Operation was updated successfully."
         });
       } else {
         res.send({
-          message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`
+          message: `Cannot update Operation with id=${id}. Maybe Operation was not found or req.body is empty!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error updating Tutorial with id=" + id
+        message: "Error updating Operation with id=" + id
       });
     });
 };
 
-// Delete a Tutorial with the specified id in the request
+// Delete a Operation with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Tutorial.destroy({
+  Operation.destroy({
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "Tutorial was deleted successfully!"
+          message: "Operation was deleted successfully!"
         });
       } else {
         res.send({
-          message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`
+          message: `Cannot delete Operation with id=${id}. Maybe Operation was not found!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Could not delete Tutorial with id=" + id
+        message: "Could not delete Operation with id=" + id
       });
     });
 };
 
-// Delete all Tutorials from the database.
+// Delete all Operations from the database.
 exports.deleteAll = (req, res) => {
-  Tutorial.destroy({
+  Operation.destroy({
     where: {},
     truncate: false
   })
     .then(nums => {
-      res.send({ message: `${nums} Tutorials were deleted successfully!` });
+      res.send({ message: `${nums} Operations were deleted successfully!` });
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while removing all tutorials."
+          err.message || "Some error occurred while removing all Operations."
       });
     });
 };
 
-// Find all published Tutorials
+// Find all published Operations
 exports.findAllIncomes = (req, res) => {
-  Tutorial.findAll({ where: { "operation": "income" } })
+  Operation.findAll({ where: { "operation": "income" } })
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving tutorials."
+          err.message || "Some error occurred while retrieving Operations."
       });
     });
 };
 
-// Find all published Tutorials
+// Find all published Operations
 exports.findAllExpenses = (req, res) => {
-  Tutorial.findAll({ where: { "operation": "expense" } })
+  Operation.findAll({ where: { "operation": "expense" } })
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving tutorials."
+          err.message || "Some error occurred while retrieving Operations."
       });
     });
 };

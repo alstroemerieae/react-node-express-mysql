@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const Tutorial = sequelize.define("tutorial", {
+  const Operation = sequelize.define("operation", {
     id: {
       type: Sequelize.UUID,
       defaultValue: Sequelize.UUIDV1,
@@ -21,5 +21,5 @@ module.exports = (sequelize, Sequelize) => {
     }
   });
 
-  return Tutorial;
+  return Operation;
 };
