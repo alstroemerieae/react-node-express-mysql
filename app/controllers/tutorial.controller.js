@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.title) {
+  if (!req.body.concept) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
@@ -14,9 +14,9 @@ exports.create = (req, res) => {
 
   // Create a Tutorial
   const tutorial = {
-    title: req.body.title,
-    description: req.body.description,
-    published: req.body.published ? req.body.published : false
+    concept: req.body.concept,
+    amount: req.body.amount,
+    operation: req.body.operation ? req.body.operation : false
   };
 
   // Save Tutorial in the database
@@ -34,8 +34,8 @@ exports.create = (req, res) => {
 
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
-  const title = req.query.title;
-  var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+  const concept = req.query.concept;
+  var condition = concept ? { concept: { [Op.like]: `%${concept}%` } } : null;
 
   Tutorial.findAll({ where: condition })
     .then(data => {
@@ -132,8 +132,22 @@ exports.deleteAll = (req, res) => {
 };
 
 // Find all published Tutorials
-exports.findAllPublished = (req, res) => {
-  Tutorial.findAll({ where: { published: true } })
+exports.findAllIncomes = (req, res) => {
+  Tutorial.findAll({ where: { "operation": "income" } })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials."
+      });
+    });
+};
+
+// Find all published Tutorials
+exports.findAllExpenses = (req, res) => {
+  Tutorial.findAll({ where: { "operation": "expense" } })
     .then(data => {
       res.send(data);
     })

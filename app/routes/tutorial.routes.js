@@ -10,7 +10,10 @@ module.exports = app => {
   router.get("/", tutorials.findAll);
 
   // Retrieve all published Tutorials
-  router.get("/published", tutorials.findAllPublished);
+  router.get("/income", tutorials.findAllIncomes);
+
+  // Retrieve all published Tutorials
+  router.get("/expenses", tutorials.findAllExpenses);
 
   // Retrieve a single Tutorial with id
   router.get("/:id", tutorials.findOne);

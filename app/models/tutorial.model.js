@@ -5,17 +5,17 @@ module.exports = (sequelize, Sequelize) => {
       defaultValue: Sequelize.UUIDV1,
       primaryKey: true
     },
-    title: {
+    concept: {
       type: Sequelize.STRING
     },
-    description: {
+    amount: {
       type: Sequelize.INTEGER
     },
-    published: {
+    operation: {
       type: Sequelize.ENUM('income', 'expense')
     },
     date: {
-      type: Sequelize.DATE,
+      type: Sequelize.DATEONLY,
       allowNull: false,
       defaultValue: Sequelize.NOW
     }
