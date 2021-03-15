@@ -1,10 +1,5 @@
 # Alkemy Challenge (Backend)
-```
-  HOST: "localhost"
-  USER: "postgres"
-  PASSWORD: "123"
-  DB: "testdb"
-```
+
 ## Technologies
 
 - Node.js
@@ -26,6 +21,17 @@ cd alkemy-challenge-backend
 npm install
 
 npm start
+```
+## API url
+```
+http://localhost:8080/api/operations
+```
+## DB config
+```
+  HOST: "localhost"
+  USER: "postgres"
+  PASSWORD: "123"
+  DB: "testdb"
 ```
 
 ## Status
