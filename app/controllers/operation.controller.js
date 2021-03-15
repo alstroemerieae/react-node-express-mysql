@@ -16,7 +16,7 @@ exports.create = (req, res) => {
   const operation = {
     concept: req.body.concept,
     amount: req.body.amount,
-    operation: req.body.operation ? req.body.operation : false
+    type: req.body.type ? req.body.type : false
   };
 
   // Save Operation in the database

@@ -11,7 +11,7 @@ module.exports = (sequelize, Sequelize) => {
     amount: {
       type: Sequelize.INTEGER
     },
-    operation: {
+    type: {
       type: Sequelize.ENUM('income', 'expense')
     },
     date: {
